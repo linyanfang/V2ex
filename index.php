@@ -76,6 +76,7 @@
 					</p>
 					<p>
 						<a class="btn btn-primary btn-lg" role="button" href="logout.php">退出登陆</a>
+						<a class="btn btn-primary btn-lg" role="button" href="look.php">查询成绩</a>
 					</p>
 				</div>
 			</div>
