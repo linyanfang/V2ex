@@ -7,17 +7,21 @@ header("Content-type:text/html;charset=utf-8");
 		// print_r($_POST);
 		$xueyuan = $_POST['xueyuan'];
 		$project = $_POST['project'];
-		// echo $project;
+		// echo $xueyuan;
 		$db = new DB();
 		$sql = "select * from score where institute = '$xueyuan' and project = '$project'";
 
-		$userInfo = $db->select($sql);//这是你的所有信息
-		$users = mysql_fetch_assoc($userInfo);
-		if($users){
-			echo "success";
-		}else{
-			echo "fail";
-		}
+		// $userInfo = mysql_query($sql);//这是你的所有信息
+		// if (!$userInfo) {
+	    // echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+	    // exit;
+		// }
+		 $userInfo = $db->select($sql);
+		// $row=mysql_fetch_array($userInfo);
+		  $userInfo = mysql_fetch_assoc($userInfo);
+		  echo $userInfo["this_score"];
+		// $row = mysql_fetch_array($userInfo);
+		
 	}
 	
  	
@@ -47,7 +51,7 @@ header("Content-type:text/html;charset=utf-8");
 		  <label>
 		  <div align="center"><span class="STYLE2">选择查询学院：</span>
 		      <select name="xueyuan">
-		        <option value="通信学院">tongxin</option>
+		        <option value="通信学院">通信学院</option>
 		        <option value="计算机学院">计算机学院</option>
 		        <option value="自动化学院">自动化学院</option>
 		        <option value="光电学院">光电学院</option>
@@ -60,9 +64,8 @@ header("Content-type:text/html;charset=utf-8");
 		        <option value="传媒与艺术学院">传媒与艺术学院</option>
 		        <option value="软件学院">软件学院</option>
 		      </select>
-		      <br>
 		      <select name="project">
-			      <option value="100">100</option>
+			      <option value="100米跑">100米跑</option>
 			      <option value="200米跑">200米跑</option>
 			      <option value="400米跑">400米跑</option>
 			      <option value="4*100米接力">4*100米接力</option>
@@ -74,16 +77,17 @@ header("Content-type:text/html;charset=utf-8");
 			      <option value="单人乒乓球">单人乒乓球</option>
 			      <option value="篮球">篮球</option>
 		      </select>
+		      <input type="submit" name="submit" value="查询" />
 		      <div align="center">
-			    <input type="submit" name="submit" value="查询" />
-			    <br />
 			    <span class="STYLE2"><br />
 			    此项得分：
-			    <input type="text" name="textfield" />  
-			    <br />  
+			    <?php
+			    	echo $userInfo["this_score"];
+			    ?>
+			     
 			    <br />
 			    当前总分：</span>
-			  <input type="text" name="textfield2" />
+			 
 			  </div>
 		      <br />
 		      <br />
