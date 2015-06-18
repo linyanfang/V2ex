@@ -1,31 +1,4 @@
 	
-<?php 
-header("Content-type:text/html;charset=utf-8");
-	require 'include/DB.class.php';
-
-	if (!empty($_POST)) {//这儿判断一下,当点击了提交按钮，有数据传过来时才去执行php,否则这个页面只要显示html就好
-		// print_r($_POST);
-		$xueyuan = $_POST['xueyuan'];
-		$project = $_POST['project'];
-		// echo $xueyuan;
-		$db = new DB();
-		$sql = "select * from score where institute = '$xueyuan' and project = '$project'";
-
-		// $userInfo = mysql_query($sql);//这是你的所有信息
-		// if (!$userInfo) {
-	    // echo "Could not successfully run query ($sql) from DB: " . mysql_error();
-	    // exit;
-		// }
-		 $userInfo = $db->select($sql);
-		// $row=mysql_fetch_array($userInfo);
-		  $userInfo = mysql_fetch_assoc($userInfo);
-		  echo $userInfo["this_score"];
-		// $row = mysql_fetch_array($userInfo);
-		
-	}
-	
- 	
-?>
 
 
 <!doctype html>
@@ -42,6 +15,10 @@ header("Content-type:text/html;charset=utf-8");
 			-webkit-background-size: cover;
 			-moz-background-size: cover;
 			background-size: cover;
+		}
+		.score{
+			margin-top: 10px;
+			font-size: 16px;
 		}
 		</style>
 	</head>
@@ -78,15 +55,37 @@ header("Content-type:text/html;charset=utf-8");
 			      <option value="篮球">篮球</option>
 		      </select>
 		      <input type="submit" name="submit" value="查询" />
-		      <div align="center">
-			    <span class="STYLE2"><br />
-			    此项得分：
-			    <?php
-			    	echo $userInfo["this_score"];
-			    ?>
-			     
-			    <br />
-			    当前总分：</span>
+		      <div align="center" class="score">
+			 
+			    <?php 
+					header("Content-type:text/html;charset=utf-8");
+						require 'include/DB.class.php';
+
+						if (!empty($_POST)) {//这儿判断一下,当点击了提交按钮，有数据传过来时才去执行php,否则这个页面只要显示html就好
+							// print_r($_POST);
+							$xueyuan = $_POST['xueyuan'];
+							$project = $_POST['project'];
+							// echo $xueyuan;
+							$db = new DB();
+							$sql = "select * from score where institute = '$xueyuan' and project = '$project'";
+
+							// $userInfo = mysql_query($sql);//这是你的所有信息
+							// if (!$userInfo) {
+						    // echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+						    // exit;
+							// }
+							 $userInfo = $db->select($sql);
+							// $row=mysql_fetch_array($userInfo);
+							  $userInfo = mysql_fetch_assoc($userInfo);
+							  echo "此项得分:".$userInfo["this_score"];
+							  echo "<br/>";
+							  echo "当前总分:".$userInfo["total_score"];
+							// $row = mysql_fetch_array($userInfo);
+							
+						}
+						
+					 	
+				?>
 			 
 			  </div>
 		      <br />
